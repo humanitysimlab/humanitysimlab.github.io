@@ -89,6 +89,7 @@ export interface Experiment {
 export const SITE = {
   name: "Humanity Simulated",
   youtube: "https://www.youtube.com/@HumanitySimLab",
+  patreon: "https://www.patreon.com/c/humanitysimlab",
   /** The one plain sentence allowed under the name (same size as body text). */
   description:
     "Short films about simple simulations of people. Each page has the model's rules, its code and its sources.",
