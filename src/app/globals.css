@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/*
+ * Version tokens (TARTISMA-WEBSITE.md §2). Every page sits inside <VersionShell v={1|2|3}>,
+ * which renders <div data-v="N">. Use the Tailwind names below, never raw hex in components:
+ *   bg-bg  text-fg  text-muted  border-line  max-w-measure  (font-family comes from [data-v])
+ * Coral and mint exist only for the brand mark (v3 header). Nothing else is coloured.
+ */
+:root,
+[data-v="1"] {
+  /* v1 — Kontakt baskı */
+  --bg: #ffffff;
+  --fg: #262a3b;
+  --muted: #6b7080;
+  --line: #e4e1d9;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --text: 15px;
+  --leading: 1.5;
+  --measure: 960px;
+}
+
+[data-v="2"] {
+  /* v2 — Defter: system serif, no web font */
+  --bg: #ffffff;
+  --fg: #1f2230;
+  --muted: #5e6372;
+  --line: #dddddd;
+  --font-body: Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
+  --text: 18px;
+  --leading: 1.55;
+  --measure: 928px; /* 640 px text + 40 px gap + 200 px Tufte margin + 2 × 24 px page padding */
+}
+
+[data-v="3"] {
+  /* v3 — Deney kaydı */
+  --bg: #151a26;
+  --fg: #ece6da;
+  --muted: #8d96aa;
+  --line: rgba(236, 230, 218, 0.14);
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --text: 15px;
+  --leading: 1.45;
+  --measure: 1120px;
+}
+
+:root {
+  --coral: #e8453a;
+  --mint: #4fbf8f;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-coral: var(--coral);
+  --color-mint: var(--mint);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --container-measure: var(--measure);
+}
+
+/* Base layer, so Tailwind utilities (no-underline, text-muted …) can override these defaults. */
+@layer base {
+  html {
+    background: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%;
+  }
+
+  /* No white flash or overscroll band around the dark version. */
+  html:has([data-v="3"]) {
+    background: #151a26;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  [data-v] {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: var(--text);
+    line-height: var(--leading);
+  }
+
+  [data-v="1"],
+  [data-v="3"] {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Links: same colour as the text, a thin underline. Nothing else. */
+  [data-v] a {
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  [data-v] ::selection {
+    background: var(--fg);
+    color: var(--bg);
+  }
+
+  /* Native range and radio controls in the simulators take the text colour of the version. */
+  [data-v] input[type="range"],
+  [data-v] input[type="radio"] {
+    accent-color: currentColor;
+  }
+}
