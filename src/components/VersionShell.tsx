@@ -21,10 +21,19 @@ export function VersionShell({
   children: ReactNode;
 }) {
   return (
-    <div data-v={v}>
+    <div data-v={v} className="flex flex-col">
       {before}
       <SiteHeader home={home} mark={v === 3} />
-      <main className="mx-auto w-full max-w-measure px-5 pb-24 sm:px-6">{children}</main>
+      <main className="mx-auto w-full max-w-measure flex-1 px-5 pb-20 sm:px-6">{children}</main>
+      <footer className="mx-auto w-full max-w-measure px-5 pb-12 sm:px-6">
+        <p className="m-0 border-t border-line pt-6 text-[13px] text-muted">
+          Simulation code is{" "}
+          <a href="https://github.com/humanitysimlab/humanitysimlab.github.io/blob/main/LICENSE">
+            MIT licensed
+          </a>{" "}
+          — free to run, study and adapt. Films and visuals © 2026 Humanity Simulated.
+        </p>
+      </footer>
     </div>
   );
 }
